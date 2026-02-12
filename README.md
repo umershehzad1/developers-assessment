@@ -1,6 +1,8 @@
 
 ## Screenshots
 
+> **Demo Video:** [Watch the demo](https://drive.google.com/file/d/1Il2kJ_1rawPRbGsm7zVngJA9KOx9TrOo/view?usp=sharing)
+
 ### 01. Dashboard
 ![Dashboard](screenshots/01-dashboard.png)
 
