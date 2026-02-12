@@ -15,9 +15,16 @@ import { Route as RecoverPasswordRouteImport } from './routes/recover-password'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as LayoutRouteImport } from './routes/_layout'
 import { Route as LayoutIndexRouteImport } from './routes/_layout/index'
+import { Route as LayoutWorklogsRouteImport } from './routes/_layout/worklogs'
 import { Route as LayoutSettingsRouteImport } from './routes/_layout/settings'
+import { Route as LayoutPaymentsRouteImport } from './routes/_layout/payments'
 import { Route as LayoutItemsRouteImport } from './routes/_layout/items'
 import { Route as LayoutAdminRouteImport } from './routes/_layout/admin'
+import { Route as LayoutWorklogsIndexRouteImport } from './routes/_layout/worklogs.index'
+import { Route as LayoutPaymentsIndexRouteImport } from './routes/_layout/payments.index'
+import { Route as LayoutWorklogsWorklogIdRouteImport } from './routes/_layout/worklogs.$worklogId'
+import { Route as LayoutPaymentsNewRouteImport } from './routes/_layout/payments.new'
+import { Route as LayoutPaymentsPaymentIdRouteImport } from './routes/_layout/payments.$paymentId'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -48,9 +55,19 @@ const LayoutIndexRoute = LayoutIndexRouteImport.update({
   path: '/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutWorklogsRoute = LayoutWorklogsRouteImport.update({
+  id: '/worklogs',
+  path: '/worklogs',
+  getParentRoute: () => LayoutRoute,
+} as any)
 const LayoutSettingsRoute = LayoutSettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutPaymentsRoute = LayoutPaymentsRouteImport.update({
+  id: '/payments',
+  path: '/payments',
   getParentRoute: () => LayoutRoute,
 } as any)
 const LayoutItemsRoute = LayoutItemsRouteImport.update({
@@ -63,6 +80,31 @@ const LayoutAdminRoute = LayoutAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutWorklogsIndexRoute = LayoutWorklogsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutWorklogsRoute,
+} as any)
+const LayoutPaymentsIndexRoute = LayoutPaymentsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LayoutPaymentsRoute,
+} as any)
+const LayoutWorklogsWorklogIdRoute = LayoutWorklogsWorklogIdRouteImport.update({
+  id: '/$worklogId',
+  path: '/$worklogId',
+  getParentRoute: () => LayoutWorklogsRoute,
+} as any)
+const LayoutPaymentsNewRoute = LayoutPaymentsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => LayoutPaymentsRoute,
+} as any)
+const LayoutPaymentsPaymentIdRoute = LayoutPaymentsPaymentIdRouteImport.update({
+  id: '/$paymentId',
+  path: '/$paymentId',
+  getParentRoute: () => LayoutPaymentsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
@@ -71,8 +113,15 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/admin': typeof LayoutAdminRoute
   '/items': typeof LayoutItemsRoute
+  '/payments': typeof LayoutPaymentsRouteWithChildren
   '/settings': typeof LayoutSettingsRoute
+  '/worklogs': typeof LayoutWorklogsRouteWithChildren
   '/': typeof LayoutIndexRoute
+  '/payments/$paymentId': typeof LayoutPaymentsPaymentIdRoute
+  '/payments/new': typeof LayoutPaymentsNewRoute
+  '/worklogs/$worklogId': typeof LayoutWorklogsWorklogIdRoute
+  '/payments/': typeof LayoutPaymentsIndexRoute
+  '/worklogs/': typeof LayoutWorklogsIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
@@ -83,6 +132,11 @@ export interface FileRoutesByTo {
   '/items': typeof LayoutItemsRoute
   '/settings': typeof LayoutSettingsRoute
   '/': typeof LayoutIndexRoute
+  '/payments/$paymentId': typeof LayoutPaymentsPaymentIdRoute
+  '/payments/new': typeof LayoutPaymentsNewRoute
+  '/worklogs/$worklogId': typeof LayoutWorklogsWorklogIdRoute
+  '/payments': typeof LayoutPaymentsIndexRoute
+  '/worklogs': typeof LayoutWorklogsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -93,8 +147,15 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_layout/admin': typeof LayoutAdminRoute
   '/_layout/items': typeof LayoutItemsRoute
+  '/_layout/payments': typeof LayoutPaymentsRouteWithChildren
   '/_layout/settings': typeof LayoutSettingsRoute
+  '/_layout/worklogs': typeof LayoutWorklogsRouteWithChildren
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/payments/$paymentId': typeof LayoutPaymentsPaymentIdRoute
+  '/_layout/payments/new': typeof LayoutPaymentsNewRoute
+  '/_layout/worklogs/$worklogId': typeof LayoutWorklogsWorklogIdRoute
+  '/_layout/payments/': typeof LayoutPaymentsIndexRoute
+  '/_layout/worklogs/': typeof LayoutWorklogsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -105,8 +166,15 @@ export interface FileRouteTypes {
     | '/signup'
     | '/admin'
     | '/items'
+    | '/payments'
     | '/settings'
+    | '/worklogs'
     | '/'
+    | '/payments/$paymentId'
+    | '/payments/new'
+    | '/worklogs/$worklogId'
+    | '/payments/'
+    | '/worklogs/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
@@ -117,6 +185,11 @@ export interface FileRouteTypes {
     | '/items'
     | '/settings'
     | '/'
+    | '/payments/$paymentId'
+    | '/payments/new'
+    | '/worklogs/$worklogId'
+    | '/payments'
+    | '/worklogs'
   id:
     | '__root__'
     | '/_layout'
@@ -126,8 +199,15 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_layout/admin'
     | '/_layout/items'
+    | '/_layout/payments'
     | '/_layout/settings'
+    | '/_layout/worklogs'
     | '/_layout/'
+    | '/_layout/payments/$paymentId'
+    | '/_layout/payments/new'
+    | '/_layout/worklogs/$worklogId'
+    | '/_layout/payments/'
+    | '/_layout/worklogs/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -182,11 +262,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/worklogs': {
+      id: '/_layout/worklogs'
+      path: '/worklogs'
+      fullPath: '/worklogs'
+      preLoaderRoute: typeof LayoutWorklogsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/settings': {
       id: '/_layout/settings'
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof LayoutSettingsRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/payments': {
+      id: '/_layout/payments'
+      path: '/payments'
+      fullPath: '/payments'
+      preLoaderRoute: typeof LayoutPaymentsRouteImport
       parentRoute: typeof LayoutRoute
     }
     '/_layout/items': {
@@ -203,20 +297,89 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/worklogs/': {
+      id: '/_layout/worklogs/'
+      path: '/'
+      fullPath: '/worklogs/'
+      preLoaderRoute: typeof LayoutWorklogsIndexRouteImport
+      parentRoute: typeof LayoutWorklogsRoute
+    }
+    '/_layout/payments/': {
+      id: '/_layout/payments/'
+      path: '/'
+      fullPath: '/payments/'
+      preLoaderRoute: typeof LayoutPaymentsIndexRouteImport
+      parentRoute: typeof LayoutPaymentsRoute
+    }
+    '/_layout/worklogs/$worklogId': {
+      id: '/_layout/worklogs/$worklogId'
+      path: '/$worklogId'
+      fullPath: '/worklogs/$worklogId'
+      preLoaderRoute: typeof LayoutWorklogsWorklogIdRouteImport
+      parentRoute: typeof LayoutWorklogsRoute
+    }
+    '/_layout/payments/new': {
+      id: '/_layout/payments/new'
+      path: '/new'
+      fullPath: '/payments/new'
+      preLoaderRoute: typeof LayoutPaymentsNewRouteImport
+      parentRoute: typeof LayoutPaymentsRoute
+    }
+    '/_layout/payments/$paymentId': {
+      id: '/_layout/payments/$paymentId'
+      path: '/$paymentId'
+      fullPath: '/payments/$paymentId'
+      preLoaderRoute: typeof LayoutPaymentsPaymentIdRouteImport
+      parentRoute: typeof LayoutPaymentsRoute
+    }
   }
 }
+
+interface LayoutPaymentsRouteChildren {
+  LayoutPaymentsPaymentIdRoute: typeof LayoutPaymentsPaymentIdRoute
+  LayoutPaymentsNewRoute: typeof LayoutPaymentsNewRoute
+  LayoutPaymentsIndexRoute: typeof LayoutPaymentsIndexRoute
+}
+
+const LayoutPaymentsRouteChildren: LayoutPaymentsRouteChildren = {
+  LayoutPaymentsPaymentIdRoute: LayoutPaymentsPaymentIdRoute,
+  LayoutPaymentsNewRoute: LayoutPaymentsNewRoute,
+  LayoutPaymentsIndexRoute: LayoutPaymentsIndexRoute,
+}
+
+const LayoutPaymentsRouteWithChildren = LayoutPaymentsRoute._addFileChildren(
+  LayoutPaymentsRouteChildren,
+)
+
+interface LayoutWorklogsRouteChildren {
+  LayoutWorklogsWorklogIdRoute: typeof LayoutWorklogsWorklogIdRoute
+  LayoutWorklogsIndexRoute: typeof LayoutWorklogsIndexRoute
+}
+
+const LayoutWorklogsRouteChildren: LayoutWorklogsRouteChildren = {
+  LayoutWorklogsWorklogIdRoute: LayoutWorklogsWorklogIdRoute,
+  LayoutWorklogsIndexRoute: LayoutWorklogsIndexRoute,
+}
+
+const LayoutWorklogsRouteWithChildren = LayoutWorklogsRoute._addFileChildren(
+  LayoutWorklogsRouteChildren,
+)
 
 interface LayoutRouteChildren {
   LayoutAdminRoute: typeof LayoutAdminRoute
   LayoutItemsRoute: typeof LayoutItemsRoute
+  LayoutPaymentsRoute: typeof LayoutPaymentsRouteWithChildren
   LayoutSettingsRoute: typeof LayoutSettingsRoute
+  LayoutWorklogsRoute: typeof LayoutWorklogsRouteWithChildren
   LayoutIndexRoute: typeof LayoutIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutAdminRoute: LayoutAdminRoute,
   LayoutItemsRoute: LayoutItemsRoute,
+  LayoutPaymentsRoute: LayoutPaymentsRouteWithChildren,
   LayoutSettingsRoute: LayoutSettingsRoute,
+  LayoutWorklogsRoute: LayoutWorklogsRouteWithChildren,
   LayoutIndexRoute: LayoutIndexRoute,
 }
 
